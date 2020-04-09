@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>English for kids</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <header class="header">
+        <button class="header__btn" id="btn"></button>
+        <h1 class="header__title">English for kids</h1>
+        <div class="header__flipswitch">
+            <input type="checkbox" id="checkbox" class="header__flipswitch-input">
+            <label for="checkbox" class="header__flipswitch-label">
+                <span class="header__flipswitch-train">train</span>
+                <span class="header__flipswitch-play">play</span>
+                <div class="header__flipswitch-slider"></div>
+            </label>
+        </div>
+        <nav class="header__nav">
+            <ul class="header__nav-list">
+                <li id="Main">Main Page</li>
+                <li id="Action">Action (set A)</li>
+                <li id="Action">Action (set B)</li>
+                <li id="Animal">Animal (set A)</li>
+                <li id="Animal">Animal (set B)</li>
+                <li id="Clothes">Clothes</li>
+                <li id="Emotions">Emotions</li>
+                <li id="Eat">Eat</li>
+                <li id="Fruit">Fruit</li>
+                <li id="Furniture">Furniture</li>
+                <li id="Nature">Nature</li>
+                <li id="Transport">Transport</li>
+                <li id="Vegetables">Vegetables</li>
+                <li id="Statistics">Statistics</li>
+            </ul>
+        </nav>
+    </header>
+    <section class="main" id="main">
+    </section>
+    <section class="statistics">
+        <h2 class="statistics__title">Statistics</h2>
+        <table class="statistics__table">
+            <thead>
+                <th>
+                    <td>Category</td>
+                    <td>Word</td>
+                    <td>Translate</td>
+                    <td>Train</td>
+                    <td>Play</td>
+                    <td>Сorrectly</td>
+                    <td>%</td>
+                </th>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </section>
+</body>
+
+</html>
