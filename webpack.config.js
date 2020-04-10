@@ -37,15 +37,7 @@ const webpack = require('webpack');
 require('dotenv').config();
 
 const ENV = process.env.APP_ENV;
-const isDev = ENV === 'dev';
 const isProd = ENV === 'prod';
-
-function setDevTool() {
-    if (isDev) {
-        return 'cheap-module-eval-source-map';
-    }
-    return 'none';
-}
 
 function setDMode() {
     if (isProd) {
@@ -62,7 +54,6 @@ const config = {
         filename: 'bundle.js',
     },
     mode: setDMode(),
-    devtool: setDevTool(),
     module: {
         rules: [{
             test: /\.html$/,
@@ -159,6 +150,7 @@ const config = {
             APP_ENV: JSON.stringify(process.env.APP_ENV),
         }),
     ],
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,

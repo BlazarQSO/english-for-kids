@@ -40,11 +40,8 @@ body {
         z-index: 999;
         cursor: url(../data/icon/click.png) 5 -24, pointer;
     }
-    &__btn:hover {
-        transform: rotate(360deg);
-    }
     &__click {
-        transform: rotate(90deg);
+        transform: rotate(360deg);
     }
 
     &__flipswitch {
@@ -70,6 +67,9 @@ body {
             position: absolute;
             transform: translate(-50%, -50%);
             z-index: 2;
+            cursor: url(../data/icon/click.png) 5 -24, pointer;
+            box-shadow: inset 0px 6px 0px 0px rgba(0, 0, 0, 0.2), -10px 0px 13px -7px #000000,
+                10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
         }
 
         &-slider {
@@ -86,6 +86,7 @@ body {
             cursor: pointer;
             background-image: url(../data/icon/pause.png);
             background-size: cover;
+            cursor: url(../data/icon/click.png) 5 -24, pointer;
         }
 
         &-play,
@@ -114,10 +115,11 @@ body {
     background-image: -webkit-linear-gradient(top, #ffd700 0%, #d9cf73 50%, #8f7800 100%);
     color: firebrick;
     font-size: 24px;
+    box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 
     &__list {
         margin-top: 120px;
-        margin-bottom: 0;
+        margin-bottom: 50px;
         list-style: none;
         cursor: url(../data/icon/click.png) 5 -24, pointer;
 
@@ -199,13 +201,14 @@ body {
 }
 
 .statistics {
+    display: none;
     background-image: -webkit-linear-gradient(
         top,
         rgb(245, 255, 233) 0%,
         rgb(238, 254, 255) 50%,
         rgb(255, 233, 230) 100%
     );
-    min-height: 600px;
+    min-height: 660px;
 
     &__title {
         color: #a7dd3c;
@@ -254,17 +257,23 @@ body {
 }
 
 .main {
-    min-height: 600px;
     background-image: -webkit-linear-gradient(top, #e0fdf8 0%, #e6fde1 50%, #fcf2dd 100%);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
+.main figure:last-child {
+    margin-bottom: 80px;
+}
+
+.play,
 .category {
-    width: 330px;
+    width: 315px;
     height: 220px;
-    margin-top: 40px;
+    margin: 0;
+    padding: 0;
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,6 +285,7 @@ body {
     background-position: bottom 150px left, top 130px left;
     box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     transition: 0.3s;
+    cursor: url(../data/icon/click.png) 5 -24, pointer;
 
     &__img {
         width: 180px;
@@ -301,8 +311,92 @@ body {
     }
 }
 
+.play:hover,
 .category:hover {
-    // box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
     box-shadow: -20px 10px 23px -7px #000000, 20px 0px 23px -7px #000000, 15px 5px 25px 5px rgba(0, 0, 0, 0),
         -10px -10px 23px -7px #000000;
+}
+
+.play {
+    background: none;
+    width: 315px;
+    height: 270px;
+    justify-content: start;
+    position: relative;
+
+    &__img {
+        width: 315px;
+        height: 210px;
+        object-fit: cover;
+        object-position: top 50px;
+        margin-top: 0;
+        border-radius: 0;
+        border: 0;
+    }
+    &__label {
+        width: 315px;
+        height: 55px;
+        padding-top: 5px;
+        color: #ffffff;
+        background: #0e968a;
+        text-shadow: 4px 3px 0 #7a7a7a;
+        color: #ffffff;
+        background: #b8b8b8;
+    }
+
+    &__btn {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border: 0;
+        outline: 0;
+        border-radius: 50%;
+        background: none;
+        background-image: url(../data/icon/rotate.png);
+        background-size: cover;
+        cursor: url(../data/icon/click.png) 5 -24, pointer;
+        transition: 0.3s;
+        right: 10px;
+        bottom: 5px;
+    }
+    &__btn:hover {
+        transform: rotate(180deg)
+    }
+}
+
+.wrap-not-rotate {
+    width: 315px;
+    height: 370px;
+}
+
+
+.show {
+    display: block;
+}
+.decoration {
+    text-decoration: underline;
+}
+
+@keyframes spinner {
+    from {
+        -webkit-transform: rotateY(0deg);
+    }
+    to {
+        -webkit-transform: rotateY(180deg);
+    }
+}
+
+.rotate {
+    animation: spinner linear 0.5s 1 forwards;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.text-rotate {
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
 }
