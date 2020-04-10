@@ -89,7 +89,7 @@ const cards = [
         },
         {
             english: 'skip',
-            russian: 'пропускать, прыгать',
+            russian: 'перепрыгивать',
             image: './images/skip.jpg',
             audio: './audio/skip.mp3',
         },

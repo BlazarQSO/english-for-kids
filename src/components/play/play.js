@@ -1,32 +1,26 @@
 import cards from '../../data/cards';
 
 const categories = document.getElementById('main');
-let idCategory = 0;
 let idCard = 0;
 
 function mouseLive(e) {
-    const id = e.target.id.replace('rot', '');
-    const btn = document.getElementById(`btn${id}`);
-    if (btn.classList.length > 1) {
-        document.getElementById(`play${id}`).classList.toggle('rotate');
-        btn.classList.toggle('hidden');
-        setTimeout(() => {
-            const label = document.getElementById(`label${id}`);
-            label.innerHTML = cards[idCategory][id].english;
-            label.classList.toggle('text-rotate');
-        }, 250);
-    }
+    document.getElementById(e.target.id).classList.remove('flipper-rotate');
 }
 
 export default function play(id) {
-    idCategory = id;
     for (let i = 0, len = cards[id].length; i < len; i += 1) {
-        const divWrapNotRotate = document.createElement('div');
-        divWrapNotRotate.id = `rot${i}`;
-        divWrapNotRotate.className = 'wrap-not-rotate';
-        const wrap = document.createElement('figure');
-        wrap.id = `play${i}`;
-        wrap.className = 'play';
+        const container = document.createElement('figure');
+        container.id = `rot${i}`;
+        container.className = 'container';
+
+        const flipper = document.createElement('div');
+        flipper.id = `flip${i}`;
+        flipper.className = 'flipper';
+
+        const front = document.createElement('div');
+        front.id = `play${i}`;
+        front.className = 'front';
+
         const img = document.createElement('img');
         img.className = 'play__img';
         img.src = cards[id][i].image;
@@ -37,24 +31,35 @@ export default function play(id) {
         const btn = document.createElement('button');
         btn.className = 'play__btn';
         btn.id = `btn${i}`;
-        wrap.append(img);
-        wrap.append(label);
-        wrap.append(btn);
-        divWrapNotRotate.append(wrap);
-        divWrapNotRotate.addEventListener('mouseleave', mouseLive);
-        categories.append(divWrapNotRotate);
+
+        const back = document.createElement('div');
+        back.id = `back${i}`;
+        back.className = 'back';
+
+        const imgBack = document.createElement('img');
+        imgBack.className = 'play__img';
+        imgBack.src = cards[id][i].image;
+        const labelBack = document.createElement('figcaption');
+        labelBack.innerHTML = cards[id][i].russian;
+        labelBack.id = `label${i}`;
+        labelBack.className = 'play__label';
+
+        front.append(img);
+        front.append(label);
+        front.append(btn);
+        back.append(imgBack);
+        back.append(labelBack);
+        flipper.append(front);
+        flipper.append(back);
+        flipper.addEventListener('mouseleave', mouseLive);
+        container.append(flipper);
+        categories.append(container);
     }
 }
 
 categories.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         idCard = e.target.id.replace('btn', '');
-        document.getElementById(`play${idCard}`).classList.toggle('rotate');
-        e.target.classList.toggle('hidden');
-        setTimeout(() => {
-            const label = document.getElementById(`label${idCard}`);
-            label.innerHTML = cards[idCategory][idCard].russian;
-            label.classList.toggle('text-rotate');
-        }, 250);
+        document.getElementById(`flip${idCard}`).classList.toggle('flipper-rotate');
     }
 });
