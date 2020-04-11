@@ -26,10 +26,10 @@ const cards = [
             audio: './audio/draw.mp3',
         },
         {
-            english: 'fish',
-            russian: 'ловить рыбу',
-            image: './images/fish.jpg',
-            audio: './audio/fish.mp3',
+            english: 'walk',
+            russian: 'идти',
+            image: './images/walk.jpg',
+            audio: './audio/walk.mp3',
         },
         {
             english: 'fly',
@@ -160,7 +160,7 @@ const cards = [
         {
             english: 'fish',
             russian: 'рыба',
-            image: './images/fish1.jpg',
+            image: './images/fish.jpg',
             audio: './audio/fish.mp3',
         },
         {

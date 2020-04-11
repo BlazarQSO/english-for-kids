@@ -1,4 +1,5 @@
 import { playG, startG } from '../play/play';
+import Statistics from '../statistics/statistics';
 import main from '../main/main';
 
 export default function header() {
@@ -18,6 +19,7 @@ export default function header() {
                 main();
             } else if (e.target.id === 'liStatistics') {
                 mainPage.innerHTML = '';
+                new Statistics().create();
                 document.getElementById('statistics').classList.add('show');
             } else if (e.target.id !== 'liMain') {
                 document.getElementById('statistics').classList.remove('show');
@@ -35,7 +37,7 @@ export default function header() {
 document.getElementById('checkbox').addEventListener('change', () => {
     const mainPage = document.getElementById('main');
     const check = document.getElementById('checkbox');
-    if (mainPage.firstElementChild.id === 'category1') {
+    if (mainPage.firstElementChild && mainPage.firstElementChild.id === 'category1') {
         mainPage.classList.toggle('change-background');
     }
 
@@ -48,14 +50,15 @@ document.getElementById('checkbox').addEventListener('change', () => {
         }
     }
 
-    if (mainPage.firstElementChild.id !== 'category1') {
+    if (mainPage.firstElementChild && mainPage.firstElementChild.id !== 'category1') {
         if (check.checked) {
             mainPage.classList.remove('state-play');
         } else {
             mainPage.classList.add('state-play');
         }
     }
-    if (check.checked && mainPage.firstElementChild.id !== 'category1') {
+
+    if (check.checked && mainPage.firstElementChild && mainPage.firstElementChild.id !== 'category1') {
         start.classList.remove('btn-started-game');
         start.addEventListener('click', startG);
         start.innerHTML = 'Start game';

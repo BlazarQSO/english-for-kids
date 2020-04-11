@@ -12,84 +12,145 @@ class Game {
     }
 
     createWords() {
-        this.words = [];
-        let category = new Array(cards[this.idCategory].length).fill(0);
-        category = category.map((item, index) => index);
-        while (category.length > 0) {
-            const id = Math.floor(Math.random() * category.length);
-            this.words.push(category[id]);
-            category.splice(id, 1);
+        try {
+            this.words = [];
+            let category = new Array(cards[this.idCategory].length).fill(0);
+            category = category.map((item, index) => index);
+            while (category.length > 0) {
+                const id = Math.floor(Math.random() * category.length);
+                this.words.push(category[id]);
+                category.splice(id, 1);
+            }
+        } catch (error) {
+            this.message = error.message;
         }
     }
 
-    nextWord() {
-        this.count += 1;
-        const img = document.createElement('img');
-        img.className = 'star';
-        img.src = './images/star-win.svg';
-        document.getElementById('containerStars').append(img);
-        const audio = new Audio();
-        audio.src = './audio/correct.mp3';
-        audio.autoplay = true;
-        this.words.shift();
-        if (this.words.length === 0) {
-            this.endGame();
+    nextWord(id) {
+        try {
+            this.count += 1;
+            const img = document.createElement('img');
+            img.className = 'star';
+            img.src = './images/star-win.svg';
+            document.getElementById('containerStars').append(img);
+            const audio = new Audio();
+            audio.src = './audio/correct.mp3';
+            audio.autoplay = true;
+            this.words.shift();
+            if (this.words.length === 0) {
+                this.endGame();
+            }
+            this.addStoragePlay(id);
+            this.repeatWord();
+        } catch (error) {
+            this.message = error.message;
         }
-        this.repeatWord();
     }
 
-    wrong() {
-        this.count += 1;
-        const audio = new Audio();
-        audio.src = './audio/error.mp3';
-        audio.autoplay = true;
-        const img = document.createElement('img');
-        img.className = 'star';
-        img.src = './images/star.svg';
-        document.getElementById('containerStars').append(img);
+    wrong(id) {
+        try {
+            this.count += 1;
+            const audio = new Audio();
+            audio.src = './audio/error.mp3';
+            audio.autoplay = true;
+            const img = document.createElement('img');
+            img.className = 'star';
+            img.src = './images/star.svg';
+            document.getElementById('containerStars').append(img);
+            this.addStoragePlay(id);
+            this.addStorageError(id);
+        } catch (error) {
+            this.message = error.message;
+        }
     }
 
     repeatWord() {
         setTimeout(() => {
-            if (this.words && this.words.length > 0) {
-                const audio = new Audio();
-                audio.src = cards[this.idCategory][this.words[0]].audio;
-                audio.autoplay = true;
+            try {
+                if (this.words && this.words.length > 0) {
+                    const audio = new Audio();
+                    audio.src = cards[this.idCategory][this.words[0]].audio;
+                    audio.autoplay = true;
+                }
+            } catch (error) {
+                this.message = error.message;
             }
         }, 400);
     }
 
     endGame() {
         setTimeout(() => {
-            categories.innerHTML = '';
-            categories.classList.remove('state-play');
-            const message = document.createElement('p');
-            message.className = 'message';
-            const img = document.createElement('img');
-            img.className = 'end-game';
-            const wrap = document.createElement('div');
-            wrap.className = 'wrap';
-            const audio = new Audio();
-            if (this.count !== cards[this.idCategory].length) {
-                message.innerHTML = `Error count: ${this.count - cards[this.idCategory].length}`;
-                img.src = './images/failure.png';
-                audio.src = './audio/failure.mp3';
-            } else {
-                message.innerHTML = 'You Won!';
-                img.src = './images/success.png';
-                audio.src = './audio/success.mp3';
+            try {
+                categories.innerHTML = '';
+                categories.classList.remove('state-play');
+                const message = document.createElement('p');
+                message.className = 'message';
+                const img = document.createElement('img');
+                img.className = 'end-game';
+                const wrap = document.createElement('div');
+                wrap.className = 'wrap';
+                const audio = new Audio();
+                if (this.count !== cards[this.idCategory].length) {
+                    message.innerHTML = `Error count: ${this.count - cards[this.idCategory].length}`;
+                    img.src = './images/failure.png';
+                    audio.src = './audio/failure.mp3';
+                } else {
+                    message.innerHTML = 'You Won!';
+                    img.src = './images/success.png';
+                    audio.src = './audio/success.mp3';
+                }
+                audio.autoplay = true;
+                wrap.append(message);
+                wrap.append(img);
+                categories.append(wrap);
+                document.getElementById('header').classList.add('hide');
+            } catch (error) {
+                this.message = error.message;
             }
-            audio.autoplay = true;
-            wrap.append(message);
-            wrap.append(img);
-            categories.append(wrap);
-            document.getElementById('header').classList.add('hide');
         }, 700);
         setTimeout(() => {
             document.getElementById('header').classList.remove('hide');
-            document.getElementById('liMain').click();
-            document.getElementById('start').remove('btn-started-game');
+            if (document.getElementById('liMain')) document.getElementById('liMain').click();
+            document.getElementById('start').classList.remove('btn-started-game');
         }, 4000);
+    }
+
+    addStoragePlay(id) {
+        try {
+            const word = document.getElementById(`label${id}`).innerHTML;
+            const storage = localStorage.getItem(word) || false;
+            if (storage) {
+                const words = storage.split(',');
+                words[3] = +words[3] + 1;
+                localStorage.setItem(word, words.join(','));
+            }
+        } catch (error) {
+            this.message = error.message;
+        }
+    }
+
+    addStorageError(id) {
+        try {
+            const word = document.getElementById(`label${id}`).innerHTML;
+            const storage = localStorage.getItem(word);
+            const words = storage.split(',');
+            words[4] = +words[4] + 1;
+            localStorage.setItem(word, words.join(','));
+        } catch (error) {
+            this.message = error.message;
+        }
+    }
+
+    addStorageTrain(id) {
+        try {
+            const word = document.getElementById(`label${id}`).innerHTML;
+            const storage = localStorage.getItem(word);
+            const words = storage.split(',');
+            words[2] = +words[2] + 1;
+            localStorage.setItem(word, words.join(','));
+        } catch (error) {
+            this.message = error.message;
+        }
     }
 }
 
@@ -98,7 +159,9 @@ let idCategory = 0;
 const game = new Game(idCategory);
 
 function mouseLive(e) {
-    document.getElementById(e.target.id).classList.remove('flipper-rotate');
+    if (document.getElementById(e.target.id)) {
+        document.getElementById(e.target.id).classList.remove('flipper-rotate');
+    }
 }
 
 export function startGame() {
@@ -200,6 +263,7 @@ categories.addEventListener('click', (e) => {
         && e.target.tagName === 'IMG'
         && e.target.classList.contains('play__img')
         && document.getElementById('checkbox').checked) {
+        game.addStorageTrain(e.target.id.replace('img', ''));
         const audio = new Audio();
         audio.src = cards[idCategory][e.target.id.replace('img', '')].audio;
         audio.autoplay = true;
@@ -211,9 +275,9 @@ categories.addEventListener('click', (e) => {
         && !e.target.classList.contains('guessed')) {
         if (game.words && +e.target.id.replace('img', '') === game.words[0]) {
             e.target.classList.add('guessed');
-            game.nextWord();
+            game.nextWord(game.words[0]);
         } else {
-            game.wrong();
+            game.wrong(game.words[0]);
         }
     }
 });
