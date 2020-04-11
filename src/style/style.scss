@@ -48,7 +48,7 @@ body {
         transition: 0.5s;
 
         &-input:checked ~ label {
-            background: linear-gradient(180deg,#0099ae,#00bf82);
+            background: linear-gradient(180deg, #0099ae, #00bf82);
             // background-image: url(../data/icon/snow.png);
         }
         &-input:checked ~ label &-slider {
@@ -62,7 +62,7 @@ body {
         &-label {
             width: 150px;
             height: 75px;
-            background: linear-gradient(180deg,#fd6a63,#feb46b);
+            background: linear-gradient(180deg, #fd6a63, #feb46b);
             box-shadow: inset 0px 6px 0px 0px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             position: absolute;
@@ -255,7 +255,32 @@ body {
     &__table td {
         border: 2px solid #76744b;
         padding: 4px 10px;
+        position: relative;
+        cursor: pointer;
     }
+
+    &__table th::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 24px;
+        border-radius: 50%;
+        right: 4px;
+        top: 7px;
+        background-image: url(../data/icon/arrow.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        transition: 0.4s;
+        transform: rotate(90deg);
+    }
+
+    // &__table th:hover::after {
+    //     transform: rotate(-90deg);
+    // }
+}
+
+.inverse-sort::after {
+    transform: rotate(-90deg) !important;
 }
 
 .main {
@@ -284,7 +309,7 @@ body {
     background-image: url(../data/icon/snow.png), url(../data/icon/paper.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom 145px left, top 130px left;// , center center;
+    background-position: bottom 145px left, top 130px left; // , center center;
     box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     transition: 0.3s;
     cursor: url(../data/icon/click.png) 5 -24, pointer;
@@ -401,7 +426,8 @@ body {
         );
         background-image: -webkit-linear-gradient(top, rgb(250, 221, 55) 0%, #d9cf73 50%, #ebd983 100%);
         transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
-        box-shadow: -2px 10px 13px -7px #000000, 4px 0px 23px -7px #000000, 20px 5px 25px 5px rgba(0, 0, 0, 0), -8px -3px 16px -7px #000000;
+        box-shadow: -2px 10px 13px -7px #000000, 4px 0px 23px -7px #000000, 20px 5px 25px 5px rgba(0, 0, 0, 0),
+            -8px -3px 16px -7px #000000;
         width: 40%;
         height: 60px;
         margin-top: 50px;

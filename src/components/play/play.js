@@ -111,7 +111,6 @@ class Game {
         setTimeout(() => {
             document.getElementById('header').classList.remove('hide');
             if (document.getElementById('liMain')) document.getElementById('liMain').click();
-            document.getElementById('start').classList.remove('btn-started-game');
         }, 4000);
     }
 
@@ -122,6 +121,7 @@ class Game {
             if (storage) {
                 const words = storage.split(',');
                 words[3] = +words[3] + 1;
+                words[5] = (+words[4]) ? Math.ceil((100 * words[4]) / words[3]) : 0;
                 localStorage.setItem(word, words.join(','));
             }
         } catch (error) {
@@ -135,6 +135,7 @@ class Game {
             const storage = localStorage.getItem(word);
             const words = storage.split(',');
             words[4] = +words[4] + 1;
+            words[5] = (+words[4]) ? Math.ceil((100 * words[4]) / words[3]) : 0;
             localStorage.setItem(word, words.join(','));
         } catch (error) {
             this.message = error.message;

@@ -5,8 +5,10 @@ export default class Statistics {
         this.data = [];
     }
 
-    create() {
-        this.parseStorage();
+    create(sort) {
+        if (!sort) {
+            this.parseStorage();
+        }
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = '';
         const fragmentTable = new DocumentFragment();
@@ -18,6 +20,7 @@ export default class Statistics {
             const train = document.createElement('td');
             const play = document.createElement('td');
             const count = document.createElement('td');
+            const percent = document.createElement('td');
             [
                 tdCategory.innerHTML,
                 english.innerHTML,
@@ -25,10 +28,10 @@ export default class Statistics {
                 train.innerHTML,
                 play.innerHTML,
                 count.innerHTML,
+                percent.innerHTML,
             ] = this.data[i];
-            const percent = document.createElement('td');
-            const p = (+this.data[i][5]) ? Math.ceil((100 * this.data[i][5]) / this.data[i][4]) : 0;
-            percent.innerHTML = p;
+            // constp=(+this.data[i][5])?Math.ceil((100 * this.data[i][5]) / this.data[i][4]) : 0;
+            // percent.innerHTML = p;
             row.append(tdCategory);
             row.append(english);
             row.append(russian);
@@ -46,7 +49,7 @@ export default class Statistics {
             for (let j = 0, { length } = cards[i]; j < length; j += 1) {
                 const wordStat = [];
                 const stat = localStorage.getItem(cards[i][j].english)
-                    || `${cards[i][j].english},${cards[i][j].russian},0,0,0`;
+                    || `${cards[i][j].english},${cards[i][j].russian},0,0,0,0`;
                 localStorage.setItem(cards[i][j].english, stat);
                 wordStat.push(cards[0][i - 1]);
                 wordStat.push(...stat.split(','));
@@ -54,4 +57,47 @@ export default class Statistics {
             }
         }
     }
+
+    sortAlphabet(id, inverse) {
+        if (inverse) {
+            this.data.sort((a, b) => (a[id] < b[id] ? 1 : -1));
+        } else {
+            this.data.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+        }
+        this.create(true);
+    }
+
+    sortNamber(id, inverse) {
+        if (inverse) {
+            this.data.sort((a, b) => b[id] - a[id]);
+        } else {
+            this.data.sort((a, b) => a[id] - b[id]);
+        }
+        // if (id === 6) {
+        //     this.data.sort((a, b) => (a[5] / a[4]) - (b[5] / b[4] ? 1 : -1));
+        // }
+        this.create(true);
+    }
 }
+
+const statistics = new Statistics();
+statistics.parseStorage();
+
+document.getElementById('statistics').addEventListener('click', (e) => {
+    if (e.target.tagName === 'TH') {
+        const inverse = e.target.classList.contains('inverse-sort');
+        if (e.target.id.slice(0, 3) === 'num') {
+            document.getElementById(e.target.id).classList.toggle('inverse-sort');
+            statistics.sortNamber(+e.target.id.replace('num', ''), inverse);
+        } else {
+            document.getElementById(e.target.id).classList.toggle('inverse-sort');
+            statistics.sortAlphabet(+e.target.id.replace('alph', ''), inverse);
+        }
+        const headers = document.querySelectorAll('th');
+        Array.from(headers).forEach((item) => {
+            if (item.id !== e.target.id) {
+                item.classList.remove('inverse-sort');
+            }
+        });
+    }
+});
