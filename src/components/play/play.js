@@ -8,6 +8,10 @@ function mouseLive(e) {
 }
 
 export default function play(id) {
+    if (!document.getElementById('checkbox').checked) {
+        categories.classList.remove('change-background');
+    }
+    categories.innerHTML = '';
     for (let i = 0, len = cards[id].length; i < len; i += 1) {
         const container = document.createElement('figure');
         container.id = `rot${i}`;
@@ -55,10 +59,22 @@ export default function play(id) {
         container.append(flipper);
         categories.append(container);
     }
+    const startBtn = document.createElement('button');
+    startBtn.className = 'play__start';
+    startBtn.id = 'start';
+    startBtn.innerHTML = 'Start';
+    const wrapBtn = document.createElement('div');
+    wrapBtn.className = 'play__wrap';
+    wrapBtn.append(startBtn);
+    categories.append(wrapBtn);
+    if (!document.getElementById('checkbox').checked) {
+        startBtn.classList.add('show');
+        categories.classList.add('state-play');
+    }
 }
 
 categories.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') {
+    if (e.target.tagName === 'BUTTON' && e.target.id !== 'start') {
         idCard = e.target.id.replace('btn', '');
         document.getElementById(`flip${idCard}`).classList.toggle('flipper-rotate');
     }

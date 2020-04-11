@@ -48,7 +48,8 @@ body {
         transition: 0.5s;
 
         &-input:checked ~ label {
-            background-color: #50d5a1;
+            background: linear-gradient(180deg,#0099ae,#00bf82);
+            // background-image: url(../data/icon/snow.png);
         }
         &-input:checked ~ label &-slider {
             margin-left: 74px;
@@ -61,7 +62,7 @@ body {
         &-label {
             width: 150px;
             height: 75px;
-            background-color: #d55050;
+            background: linear-gradient(180deg,#fd6a63,#feb46b);
             box-shadow: inset 0px 6px 0px 0px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             position: absolute;
@@ -92,11 +93,11 @@ body {
         &-play,
         &-train {
             position: absolute;
-            margin-top: 18px;
+            margin-top: 20px;
             margin-left: 6px;
             color: green;
-            font-size: 30px;
-            text-shadow: 1px 1px 1px gold, 1px -1px 1px gold, -1px 1px 1px gold, -1px -1px 1px gold;
+            font-size: 31px;
+            text-shadow: 1px 1px 1px black, 1px -1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
         }
         &-play {
             margin-left: 82px;
@@ -109,6 +110,7 @@ body {
 .nav {
     position: absolute;
     width: 320px;
+    z-index: 9;
     top: 0;
     left: -330px;
     transition: 0.5s;
@@ -278,11 +280,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background: #00bf96;
     background-image: url(../data/icon/snow.png), url(../data/icon/paper.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom 150px left, top 130px left;
+    background-position: bottom 145px left, top 130px left;// , center center;
     box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     transition: 0.3s;
     cursor: url(../data/icon/click.png) 5 -24, pointer;
@@ -292,7 +294,7 @@ body {
         height: 120px;
         object-fit: cover;
         object-position: center;
-        border: 10px solid white;
+        border: 10px solid #00bf96;
         border-radius: 50%;
         margin-top: 30px;
     }
@@ -365,6 +367,65 @@ body {
     &__btn:hover {
         transform: rotate(180deg);
     }
+
+    &__wrap {
+        width: 98%;
+        display: flex;
+        justify-content: center;
+        min-height: 60px;
+    }
+
+    &__start {
+        display: none;
+        color: rgba(0, 0, 0, 0.795);
+        text-shadow: 1px 1px 1px white;
+        position: relative;
+        font-size: 42px;
+        font-family: "Times New Roman", Times, serif;
+        border: 2px solid #927e14;
+        border-radius: 5px;
+        outline: none;
+        text-decoration-line: none;
+        text-decoration: none;
+        user-select: none;
+        padding: 0px;
+        cursor: pointer;
+        background-image: -moz-linear-gradient(top, rgb(90, 78, 10) 0%, #d9cf73 50%, #8f7800 100%);
+        background-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            color-stop(0, #ffd700),
+            color-stop(50, #d9cf73),
+            color-stop(100, #e6ca41)
+        );
+        background-image: -webkit-linear-gradient(top, rgb(250, 221, 55) 0%, #d9cf73 50%, #ebd983 100%);
+        transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
+        box-shadow: -2px 10px 13px -7px #000000, 4px 0px 23px -7px #000000, 20px 5px 25px 5px rgba(0, 0, 0, 0), -8px -3px 16px -7px #000000;
+
+        width: 40%;
+        height: 60px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    &__start:hover {
+        background-image: none;
+        background-color: rgb(248, 212, 164);
+        color: blue;
+        outline: none;
+        text-decoration-line: none;
+        text-decoration: none;
+        box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
+
+    &__start:active {
+        background-color: rgb(255, 146, 168);
+        color: black;
+        box-shadow: 1px 1px 2px black;
+        outline: none;
+        text-decoration-line: none;
+        text-decoration: none;
+    }
 }
 
 .show {
@@ -381,7 +442,7 @@ body {
 .container {
     text-align: center;
     width: 315px;
-    height: 270px;
+    height: 272px;
     -webkit-perspective: 1200;
     perspective: 1200;
     -webkit-transform-style: preserve-3d;
@@ -389,10 +450,14 @@ body {
     margin: 0;
     padding: 0;
     margin-top: 70px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition: 0.5s linear;
 }
 .container img {
     width: 315px;
     height: 210px;
+    transition: 0.3s;
 }
 .flipper {
     position: relative;
@@ -418,14 +483,13 @@ body {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    transition: 0.3s;
 }
 .front {
     z-index: 2;
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
-    background: white;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #f5f5f5;
+    background: #b8b8b8;
 }
 
 .back {
@@ -438,4 +502,29 @@ body {
 .flipper-rotate {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
+}
+
+.change-background img {
+    border: 10px solid #fe996b;
+}
+
+.change-background figure {
+    background-image: url(../data/icon/snow.png), url(../data/icon/paper.jpg), linear-gradient(180deg, #fe996b, #fe996b);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom 145px left, top 130px left, center center;
+}
+
+.state-play img {
+    width: 315px;
+    height: 270px;
+    object-fit: cover;
+    object-position: center center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99;
+}
+.state-play figcaption {
+    margin-top: 0;
 }

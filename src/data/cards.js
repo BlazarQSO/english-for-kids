@@ -171,7 +171,7 @@ const cards = [
         },
         {
             english: 'giraffe',
-            russian: 'жирафа',
+            russian: 'жираф',
             image: './images/giraffe.jpg',
             audio: './audio/giraffe.mp3',
         },

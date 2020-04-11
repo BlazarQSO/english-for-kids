@@ -6,6 +6,7 @@ window.addEventListener('load', () => {
     main();
     header();
     const nav = document.getElementById('nav');
+    document.getElementById('liMain').classList.add('decoration');
 
     document.body.addEventListener('click', (e) => {
         if (nav.classList.length > 1 && !(e.target.tagName === 'NAV' || !e.target.tagName === 'LI')) {

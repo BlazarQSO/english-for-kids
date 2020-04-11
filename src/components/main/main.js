@@ -3,17 +3,21 @@ import play from '../play/play';
 
 const categories = document.getElementById('main');
 function click(e) {
-    if (e.target.tagName === 'FIGURE') {
+    if (e.target.tagName === 'FIGURE' || e.target.closest('figure')) {
         categories.innerHTML = '';
-        play(e.target.id.replace('category', ''));
-    } else if (e.target.closest('figure')) {
-        categories.innerHTML = '';
-        play(e.target.closest('figure').id.replace('category', ''));
+        const list = document.getElementById('list');
+        Array.from(list.children).forEach((el) => el.classList.remove('decoration'));
+        const id = (e.target.tagName === 'FIGURE')
+            ? e.target.id.replace('category', '')
+            : e.target.closest('figure').id.replace('category', '');
+        document.getElementById(`li${id}`).classList.add('decoration');
+        play(id);
+        categories.onclick = null;
     }
-    categories.removeEventListener('click', click);
 }
 
 export default function main() {
+    categories.innerHTML = '';
     for (let i = 1, len = cards[0].length; i <= len; i += 1) {
         const wrap = document.createElement('figure');
         wrap.id = `category${i}`;
@@ -28,5 +32,9 @@ export default function main() {
         wrap.append(label);
         categories.append(wrap);
     }
-    categories.addEventListener('click', click);
+    categories.onclick = click;
+    if (!document.getElementById('checkbox').checked) {
+        categories.classList.add('change-background');
+        categories.classList.remove('state-play');
+    }
 }
