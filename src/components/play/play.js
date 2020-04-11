@@ -1,17 +1,133 @@
 import cards from '../../data/cards';
 
 const categories = document.getElementById('main');
-let idCard = 0;
+
+class Game {
+    constructor(idCategory) {
+        this.idCategory = idCategory;
+        this.count = 0;
+        this.start = false;
+        this.words = [];
+        this.createWords();
+    }
+
+    createWords() {
+        this.words = [];
+        let category = new Array(cards[this.idCategory].length).fill(0);
+        category = category.map((item, index) => index);
+        while (category.length > 0) {
+            const id = Math.floor(Math.random() * category.length);
+            this.words.push(category[id]);
+            category.splice(id, 1);
+        }
+    }
+
+    nextWord() {
+        this.count += 1;
+        const img = document.createElement('img');
+        img.className = 'star';
+        img.src = './images/star-win.svg';
+        document.getElementById('containerStars').append(img);
+        const audio = new Audio();
+        audio.src = './audio/correct.mp3';
+        audio.autoplay = true;
+        this.words.shift();
+        if (this.words.length === 0) {
+            this.endGame();
+        }
+        this.repeatWord();
+    }
+
+    wrong() {
+        this.count += 1;
+        const audio = new Audio();
+        audio.src = './audio/error.mp3';
+        audio.autoplay = true;
+        const img = document.createElement('img');
+        img.className = 'star';
+        img.src = './images/star.svg';
+        document.getElementById('containerStars').append(img);
+    }
+
+    repeatWord() {
+        setTimeout(() => {
+            if (this.words && this.words.length > 0) {
+                const audio = new Audio();
+                audio.src = cards[this.idCategory][this.words[0]].audio;
+                audio.autoplay = true;
+            }
+        }, 400);
+    }
+
+    endGame() {
+        setTimeout(() => {
+            categories.innerHTML = '';
+            categories.classList.remove('state-play');
+            const message = document.createElement('p');
+            message.className = 'message';
+            const img = document.createElement('img');
+            img.className = 'end-game';
+            const wrap = document.createElement('div');
+            wrap.className = 'wrap';
+            const audio = new Audio();
+            if (this.count !== cards[this.idCategory].length) {
+                message.innerHTML = `Error count: ${this.count - cards[this.idCategory].length}`;
+                img.src = './images/failure.png';
+                audio.src = './audio/failure.mp3';
+            } else {
+                message.innerHTML = 'You Won!';
+                img.src = './images/success.png';
+                audio.src = './audio/success.mp3';
+            }
+            audio.autoplay = true;
+            wrap.append(message);
+            wrap.append(img);
+            categories.append(wrap);
+            document.getElementById('header').classList.add('hide');
+        }, 700);
+        setTimeout(() => {
+            document.getElementById('header').classList.remove('hide');
+            document.getElementById('liMain').click();
+            document.getElementById('start').remove('btn-started-game');
+        }, 4000);
+    }
+}
+
+let idCardClick = 0;
+let idCategory = 0;
+const game = new Game(idCategory);
 
 function mouseLive(e) {
     document.getElementById(e.target.id).classList.remove('flipper-rotate');
 }
 
-export default function play(id) {
+export function startGame() {
+    game.start = true;
+    game.count = 0;
+    game.idCategory = idCategory;
+    game.createWords();
+    game.repeatWord();
+
+    const btn = document.getElementById('start');
+    btn.classList.toggle('btn-started-game');
+    btn.innerHTML = 'Repeat';
+    btn.removeEventListener('click', startGame);
+    btn.addEventListener('click', game.repeatWord.bind(game));
+}
+
+export function play(id) {
+    idCategory = id;
+    game.idCategory = id;
+    game.start = false;
     if (!document.getElementById('checkbox').checked) {
         categories.classList.remove('change-background');
     }
     categories.innerHTML = '';
+    const containerStars = document.createElement('div');
+    containerStars.className = 'container-stars';
+    containerStars.id = 'containerStars';
+    categories.append(containerStars);
+
     for (let i = 0, len = cards[id].length; i < len; i += 1) {
         const container = document.createElement('figure');
         container.id = `rot${i}`;
@@ -27,6 +143,7 @@ export default function play(id) {
 
         const img = document.createElement('img');
         img.className = 'play__img';
+        img.id = `img${i}`;
         img.src = cards[id][i].image;
         const label = document.createElement('figcaption');
         label.innerHTML = cards[id][i].english;
@@ -62,7 +179,7 @@ export default function play(id) {
     const startBtn = document.createElement('button');
     startBtn.className = 'play__start';
     startBtn.id = 'start';
-    startBtn.innerHTML = 'Start';
+    startBtn.innerHTML = 'Start game';
     const wrapBtn = document.createElement('div');
     wrapBtn.className = 'play__wrap';
     wrapBtn.append(startBtn);
@@ -71,11 +188,37 @@ export default function play(id) {
         startBtn.classList.add('show');
         categories.classList.add('state-play');
     }
+    startBtn.addEventListener('click', startGame);
 }
 
 categories.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.id !== 'start') {
-        idCard = e.target.id.replace('btn', '');
-        document.getElementById(`flip${idCard}`).classList.toggle('flipper-rotate');
+        idCardClick = e.target.id.replace('btn', '');
+        document.getElementById(`flip${idCardClick}`).classList.toggle('flipper-rotate');
+    }
+    if (e.target.id
+        && e.target.tagName === 'IMG'
+        && e.target.classList.contains('play__img')
+        && document.getElementById('checkbox').checked) {
+        const audio = new Audio();
+        audio.src = cards[idCategory][e.target.id.replace('img', '')].audio;
+        audio.autoplay = true;
+    }
+    if (!document.getElementById('checkbox').checked
+        && e.target.id
+        && e.target.tagName === 'IMG'
+        && game.start
+        && !e.target.classList.contains('guessed')) {
+        if (game.words && +e.target.id.replace('img', '') === game.words[0]) {
+            e.target.classList.add('guessed');
+            game.nextWord();
+        } else {
+            game.wrong();
+        }
     }
 });
+
+export {
+    play as playG,
+    startGame as startG,
+};

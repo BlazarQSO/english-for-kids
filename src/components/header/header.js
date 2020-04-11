@@ -1,4 +1,4 @@
-import play from '../play/play';
+import { playG, startG } from '../play/play';
 import main from '../main/main';
 
 export default function header() {
@@ -22,7 +22,7 @@ export default function header() {
             } else if (e.target.id !== 'liMain') {
                 document.getElementById('statistics').classList.remove('show');
                 mainPage.onclick = null;
-                play(e.target.id.replace('li', ''));
+                playG(e.target.id.replace('li', ''));
             }
             const list = document.getElementById('list');
             Array.from(list.children).forEach((el) => el.classList.remove('decoration'));
@@ -54,5 +54,15 @@ document.getElementById('checkbox').addEventListener('change', () => {
         } else {
             mainPage.classList.add('state-play');
         }
+    }
+    if (check.checked && mainPage.firstElementChild.id !== 'category1') {
+        start.classList.remove('btn-started-game');
+        start.addEventListener('click', startG);
+        start.innerHTML = 'Start game';
+        const imgs = document.querySelectorAll('img');
+        for (let i = 0, len = imgs.length; i < len; i += 1) {
+            imgs[i].classList.remove('guessed');
+        }
+        document.getElementById('containerStars').innerHTML = '';
     }
 });
