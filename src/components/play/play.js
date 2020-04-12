@@ -179,14 +179,19 @@ export function startGame() {
     btn.addEventListener('click', game.repeatWord.bind(game));
 }
 
-export function play(id) {
+export function play(id, diffWords) {
+    categories.innerHTML = '';
+    const EXISTING_CATEGORY = 13;
+    if (cards.length > EXISTING_CATEGORY) cards.pop();
+    if (diffWords !== undefined) {
+        cards.push(diffWords);
+    }
     idCategory = id;
     game.idCategory = id;
     game.start = false;
     if (!document.getElementById('checkbox').checked) {
         categories.classList.remove('change-background');
     }
-    categories.innerHTML = '';
     const containerStars = document.createElement('div');
     containerStars.className = 'container-stars';
     containerStars.id = 'containerStars';
@@ -240,6 +245,7 @@ export function play(id) {
         container.append(flipper);
         categories.append(container);
     }
+
     const startBtn = document.createElement('button');
     startBtn.className = 'play__start';
     startBtn.id = 'start';

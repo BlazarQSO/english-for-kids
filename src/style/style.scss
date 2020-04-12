@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: #fcf2dd;
 }
 
 .header {
@@ -273,14 +274,13 @@ body {
         transition: 0.4s;
         transform: rotate(90deg);
     }
-
-    // &__table th:hover::after {
-    //     transform: rotate(-90deg);
-    // }
 }
 
 .inverse-sort::after {
     transform: rotate(-90deg) !important;
+}
+.inverse-sort-click {
+    box-shadow: 1px 1px 2px black, -1px 1px 2px black, 1px -1px 2px black, -1px -1px 2px black;
 }
 
 .main {
@@ -490,7 +490,7 @@ body {
 }
 
 .guessed {
-    filter: saturate(0.3);
+    filter: saturate(0.1);
 }
 
 .container {
@@ -609,4 +609,42 @@ body {
     height: 400px;
     margin: 0 auto;
     margin-bottom: 180px;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    &__btn {
+        margin-top: 20px;
+        background: #3e3e3d;
+        background: -moz-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        background: -webkit-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        background: linear-gradient(to bottom, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        border: 2px solid #76744b;
+        margin-left: 15px;
+        margin-right: 15px;
+        font-size: 19px;
+        color: #c9e065;
+        font-weight: bold;
+        padding: 10px;
+        width: 260px;
+        outline: 0;
+        cursor: pointer;
+        box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
+
+    &__btn:hover {
+        box-shadow: -7px 0px 10px -7px #000000, 6px 0px 8px -5px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+        color: goldenrod;
+    }
+
+    &__btn:active {
+        color: rgb(255, 222, 139);
+        box-shadow: -3px 0px 5px -4px #000000, 3px 0px 3px -3px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
 }
