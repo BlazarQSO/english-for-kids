@@ -1,5 +1,5 @@
 import cards from '../../data/cards';
-import { playG } from '../play/play';
+import { playGm } from '../play/play';
 
 export default class Statistics {
     constructor() {
@@ -16,12 +16,19 @@ export default class Statistics {
         for (let i = 0, len = this.data.length; i < len; i += 1) {
             const row = document.createElement('tr');
             const tdCategory = document.createElement('td');
+            tdCategory.setAttribute('data-col', 'Category:');
             const english = document.createElement('td');
+            english.setAttribute('data-col', 'Word:');
             const russian = document.createElement('td');
+            russian.setAttribute('data-col', 'Translate:');
             const train = document.createElement('td');
+            train.setAttribute('data-col', 'Train:');
             const play = document.createElement('td');
+            play.setAttribute('data-col', 'Play:');
             const count = document.createElement('td');
+            count.setAttribute('data-col', 'Error:');
             const percent = document.createElement('td');
+            percent.setAttribute('data-col', '%:');
             [
                 tdCategory.innerHTML,
                 english.innerHTML,
@@ -99,7 +106,7 @@ export default class Statistics {
         document.getElementById('liStatistics').classList.remove('decoration');
         if (newCategory.length !== 0) {
             document.getElementById('main').onclick = null;
-            playG(cards.length, newCategory);
+            playGm(cards.length, newCategory);
         }
     }
 

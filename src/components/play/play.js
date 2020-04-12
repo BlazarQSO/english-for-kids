@@ -181,8 +181,8 @@ export function startGame() {
 
 export function play(id, diffWords) {
     categories.innerHTML = '';
-    const EXISTING_CATEGORY = 13;
-    if (cards.length > EXISTING_CATEGORY) cards.pop();
+    const EXISTENCE_OF_CATEGORIES = 13;
+    if (cards.length > EXISTENCE_OF_CATEGORIES) cards.pop();
     if (diffWords !== undefined) {
         cards.push(diffWords);
     }
@@ -290,6 +290,6 @@ categories.addEventListener('click', (e) => {
 });
 
 export {
-    play as playG,
-    startGame as startG,
+    play as playGm,
+    startGame as startGm,
 };

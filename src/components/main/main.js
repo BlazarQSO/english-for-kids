@@ -1,5 +1,5 @@
 import cards from '../../data/cards';
-import { playG } from '../play/play';
+import { playGm } from '../play/play';
 
 const categories = document.getElementById('main');
 function click(e) {
@@ -11,7 +11,7 @@ function click(e) {
             ? e.target.id.replace('category', '')
             : e.target.closest('figure').id.replace('category', '');
         document.getElementById(`li${id}`).classList.add('decoration');
-        playG(id);
+        playGm(id);
         categories.onclick = null;
     }
 }

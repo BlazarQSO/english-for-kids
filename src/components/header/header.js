@@ -1,5 +1,5 @@
-import { playG, startG } from '../play/play';
 import Statistics from '../statistics/statistics';
+import { playGm, startGm } from '../play/play';
 import main from '../main/main';
 
 export default function header() {
@@ -24,7 +24,7 @@ export default function header() {
             } else if (e.target.id !== 'liMain') {
                 document.getElementById('statistics').classList.remove('show');
                 mainPage.onclick = null;
-                playG(e.target.id.replace('li', ''));
+                playGm(e.target.id.replace('li', ''));
             }
             const list = document.getElementById('list');
             Array.from(list.children).forEach((el) => el.classList.remove('decoration'));
@@ -60,7 +60,7 @@ document.getElementById('checkbox').addEventListener('change', () => {
 
     if (check.checked && mainPage.firstElementChild && mainPage.firstElementChild.id !== 'category1') {
         start.classList.remove('btn-started-game');
-        start.addEventListener('click', startG);
+        start.addEventListener('click', startGm);
         start.innerHTML = 'Start game';
         const imgs = document.querySelectorAll('img');
         for (let i = 0, len = imgs.length; i < len; i += 1) {

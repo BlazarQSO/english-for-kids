@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     background-color: #fcf2dd;
 }
 
@@ -50,7 +50,6 @@ body {
 
         &-input:checked ~ label {
             background: linear-gradient(180deg, #0099ae, #00bf82);
-            // background-image: url(../data/icon/snow.png);
         }
         &-input:checked ~ label &-slider {
             margin-left: 74px;
@@ -104,6 +103,41 @@ body {
             margin-left: 82px;
             color: orange;
             text-shadow: 1px 1px 1px black, 1px -1px 1px black, -1px 1px 1px black, -1px -1px 1px black;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .header {
+            &__title {
+                margin-right: 40px;
+            }
+            &__flipswitch {
+                margin-right: 40px;
+            }
+        }
+    }
+    @media only screen and (max-width: 900px) {
+        .header {
+            &__title {
+                font-size: 40px;
+            }
+        }
+    }
+    @media only screen and (max-width: 700px) {
+        .header {
+            &__title {
+                font-size: 30px;
+            }
+        }
+    }
+    @media only screen and (max-width: 600px) {
+        .header {
+            &__title {
+                font-size: 0;
+            }
+            &__flipswitch {
+                margin-right: 65px;
+            }
         }
     }
 }
@@ -201,6 +235,12 @@ body {
     &__show {
         left: 0;
     }
+
+    @media only screen and (max-width: 600px) {
+        .nav {
+            width: 300px;
+        }
+    }
 }
 
 .statistics {
@@ -233,7 +273,45 @@ body {
         background-color: #ddeecd;
         width: 80%;
         margin: 0 auto;
-        text-align: center;
+
+        &-th1,
+        &-th2,
+        &-th3,
+        &-th4,
+        &-th5,
+        &-th6,
+        &-th7 {
+            border: 2px solid #76744b;
+            padding: 4px 10px;
+            position: relative;
+            cursor: pointer;
+            font-size: 19px;
+            font-weight: bold;
+            color: #c9e065;
+            text-align: center;
+        }
+
+        &-th1 {
+            min-width: 145px;
+        }
+        &-th2 {
+            min-width: 95px;
+        }
+        &-th3 {
+            min-width: 140px;
+        }
+        &-th4 {
+            min-width: 100px;
+        }
+        &-th5 {
+            min-width: 90px;
+        }
+        &-th6 {
+            min-width: 100px;
+        }
+        &-th7 {
+            min-width: 65px;
+        }
     }
     &__table thead {
         background: #3e3e3d;
@@ -242,22 +320,17 @@ body {
         background: linear-gradient(to bottom, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
         border-bottom: 2px solid #444444;
     }
-    &__table thead th {
-        font-size: 19px;
-        font-weight: bold;
-        color: #c9e065;
-        text-align: center;
-    }
     &__table td {
         font-size: 13px;
         color: #035300;
     }
-    &__table th,
+
     &__table td {
         border: 2px solid #76744b;
         padding: 4px 10px;
         position: relative;
         cursor: pointer;
+        text-align: center;
     }
 
     &__table th::after {
@@ -273,6 +346,66 @@ body {
         background-size: cover;
         transition: 0.4s;
         transform: rotate(90deg);
+    }
+
+    @media only screen and (max-width: 950px) {
+        .statistics {
+            &__table th {
+                text-align: left;
+            }
+            &__table {
+                &-th1 {
+                    min-width: 115px;
+                }
+                &-th2 {
+                    min-width: 75px;
+                }
+                &-th3 {
+                    min-width: 120px;
+                }
+                &-th4 {
+                    min-width: 75px;
+                }
+                &-th5 {
+                    min-width: 65px;
+                }
+                &-th6 {
+                    min-width: 75px;
+                }
+                &-th7 {
+                    min-width: 40px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 780px) {
+        .statistics {
+            &__table thead {
+                display: none;
+            }
+            &__table,
+            &__table tbody,
+            &__table tr,
+            &__table td {
+                display: block;
+            }
+            &__table td {
+                margin-top: 1px;
+            }
+            &__table td {
+                text-align: right;
+                position: relative;
+            }
+            &__table td::before {
+                content: attr(data-col);
+                position: absolute;
+                left: 15px;
+                font-weight: bold;
+                color: brown;
+                text-shadow: 1px 1px 1px white, -1px 1px 1px white, 1px -1px 1px white, -1px -1px 1px white;
+            }
+        }
     }
 }
 
@@ -453,6 +586,14 @@ body {
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .play {
+        &__start {
+            width: 65%;
+        }
+    }
+}
+
 .btn-started-game {
     width: 100px;
     height: 100px;
@@ -611,6 +752,13 @@ body {
     margin-bottom: 180px;
 }
 
+@media only screen and (max-width: 450px) {
+    .end-game {
+        width: 280px;
+        height: 280px;
+    }
+}
+
 .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -646,5 +794,32 @@ body {
     &__btn:active {
         color: rgb(255, 222, 139);
         box-shadow: -3px 0px 5px -4px #000000, 3px 0px 3px -3px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
+}
+
+
+@media only screen and (max-width: 340px) {
+    .container {
+        margin-left: 0;
+        margin-right: 0;
+        width: 300px;
+    }
+    .container img {
+        width: 300px;
+    }
+    .play__label {
+        width: 300px;
+        padding-top: 14px;
+    }
+    .flipper {
+        width: 300px;
+    }
+    .nav {
+        width: 300px;
+    }
+    .buttons {
+        &__btn {
+            font-size: 16px;
+        }
     }
 }
