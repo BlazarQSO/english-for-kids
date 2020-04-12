@@ -1,9 +1,10 @@
-body {
+.body {
     margin: 0;
     padding: 0;
-    // overflow-x: hidden;
     background-color: #fcf2dd;
 }
+
+/*-------------------------HEADER-------------------------*/
 
 .header {
     width: 100%;
@@ -38,7 +39,7 @@ body {
         background-repeat: no-repeat;
         background-size: contain;
         border-radius: 50%;
-        z-index: 999;
+        z-index: 9999;
         cursor: url(../data/icon/click.png) 5 -24, pointer;
     }
     &__click {
@@ -145,7 +146,7 @@ body {
 .nav {
     position: absolute;
     width: 320px;
-    z-index: 9;
+    z-index: 999;
     top: 0;
     left: -330px;
     transition: 0.5s;
@@ -242,6 +243,10 @@ body {
         }
     }
 }
+
+/*-----------------------END HEADER-------------------------*/
+
+/*-----------------------STATISTICS-------------------------*/
 
 .statistics {
     display: none;
@@ -405,6 +410,9 @@ body {
                 color: brown;
                 text-shadow: 1px 1px 1px white, -1px 1px 1px white, 1px -1px 1px white, -1px -1px 1px white;
             }
+            &__table tr:nth-child(even) {
+                background: #D0E4F5;
+            }
         }
     }
 }
@@ -415,6 +423,49 @@ body {
 .inverse-sort-click {
     box-shadow: 1px 1px 2px black, -1px 1px 2px black, 1px -1px 2px black, -1px -1px 2px black;
 }
+
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    &__btn {
+        margin-top: 20px;
+        background: #3e3e3d;
+        background: -moz-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        background: -webkit-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        background: linear-gradient(to bottom, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
+        border: 2px solid #76744b;
+        margin-left: 15px;
+        margin-right: 15px;
+        font-size: 19px;
+        color: #c9e065;
+        font-weight: bold;
+        padding: 10px;
+        width: 260px;
+        outline: 0;
+        cursor: pointer;
+        box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
+
+    &__btn:hover {
+        box-shadow: -7px 0px 10px -7px #000000, 6px 0px 8px -5px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+        color: goldenrod;
+    }
+
+    &__btn:active {
+        color: rgb(255, 222, 139);
+        box-shadow: -3px 0px 5px -4px #000000, 3px 0px 3px -3px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    }
+}
+
+/*------------------END STATISTICS--------------------*/
+
+/*-----------------------MAIN-------------------------*/
 
 .main {
     background-image: -webkit-linear-gradient(top, #e0fdf8 0%, #e6fde1 50%, #fcf2dd 100%);
@@ -455,6 +506,7 @@ body {
         border: 10px solid #00bf96;
         border-radius: 50%;
         margin-top: 30px;
+        transition: 0.3s;
     }
 
     &__label {
@@ -614,25 +666,10 @@ body {
     transform: rotate(360deg);
 }
 
-.show {
-    display: block;
-}
 
-.hide {
-    display: none;
-}
+/*---------------------END MAIN-----------------------*/
 
-.decoration {
-    text-decoration: underline;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.guessed {
-    filter: saturate(0.1);
-}
+/*--------------------ROTATE CARD----------------------*/
 
 .container {
     text-align: center;
@@ -685,6 +722,7 @@ body {
     -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
     background: #b8b8b8;
+    transition: 0.3s;
 }
 
 .back {
@@ -699,6 +737,31 @@ body {
     transform: rotateY(180deg);
 }
 
+/*-----------------END ROTATE CARD-------------------*/
+
+/*------------------TOGGLE CLASSES-------------------*/
+
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.decoration {
+    text-decoration: underline;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.guessed {
+    filter: saturate(0.1);
+}
+
 .change-background img {
     border: 10px solid #fe996b;
 }
@@ -707,7 +770,7 @@ body {
     background-image: url(../data/icon/snow.png), url(../data/icon/paper.jpg), linear-gradient(180deg, #fe996b, #fe996b);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom 145px left, top 130px left, center center;
+    background-position: bottom 145px left, top 130px left, top 74px left;
 }
 
 .state-play img {
@@ -723,6 +786,8 @@ body {
 .state-play figcaption {
     margin-top: 0;
 }
+
+/*----------------END TOGGLE CLASSES-----------------*/
 
 .container-stars {
     height: 40px;
@@ -758,45 +823,6 @@ body {
         height: 280px;
     }
 }
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    margin: 0 auto;
-    justify-content: center;
-    padding-bottom: 20px;
-
-    &__btn {
-        margin-top: 20px;
-        background: #3e3e3d;
-        background: -moz-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
-        background: -webkit-linear-gradient(top, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
-        background: linear-gradient(to bottom, #6e6e6d 0%, #515150 66%, #3e3e3d 100%);
-        border: 2px solid #76744b;
-        margin-left: 15px;
-        margin-right: 15px;
-        font-size: 19px;
-        color: #c9e065;
-        font-weight: bold;
-        padding: 10px;
-        width: 260px;
-        outline: 0;
-        cursor: pointer;
-        box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-    }
-
-    &__btn:hover {
-        box-shadow: -7px 0px 10px -7px #000000, 6px 0px 8px -5px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-        color: goldenrod;
-    }
-
-    &__btn:active {
-        color: rgb(255, 222, 139);
-        box-shadow: -3px 0px 5px -4px #000000, 3px 0px 3px -3px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-    }
-}
-
 
 @media only screen and (max-width: 340px) {
     .container {

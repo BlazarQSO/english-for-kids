@@ -2,6 +2,28 @@ import Statistics from '../statistics/statistics';
 import { playGm, startGm } from '../play/play';
 import main from '../main/main';
 
+function eventNav(e) {
+    if (e.target.tagName === 'LI') {
+        const mainPage = document.getElementById('main');
+        if (e.target.id === 'liMain' && !e.target.classList.contains('decoration')) {
+            document.getElementById('statistics').classList.remove('show');
+            main();
+        } else if (e.target.id === 'liStatistics') {
+            mainPage.innerHTML = '';
+            new Statistics().create();
+            document.getElementById('statistics').classList.add('show');
+        } else if (e.target.id !== 'liMain') {
+            document.getElementById('statistics').classList.remove('show');
+            mainPage.onclick = null;
+            playGm(e.target.id.replace('li', ''));
+        }
+        const list = document.getElementById('list');
+        Array.from(list.children).forEach((el) => el.classList.remove('decoration'));
+        e.target.classList.add('decoration');
+        document.getElementById('nav').classList.toggle('nav__show');
+    }
+}
+
 export default function header() {
     const btn = document.getElementById('btn');
     btn.addEventListener('click', (e) => {
@@ -11,30 +33,10 @@ export default function header() {
     });
 
     const nav = document.getElementById('nav');
-    nav.addEventListener('click', (e) => {
-        if (e.target.tagName === 'LI') {
-            const mainPage = document.getElementById('main');
-            if (e.target.id === 'liMain' && !e.target.classList.contains('decoration')) {
-                document.getElementById('statistics').classList.remove('show');
-                main();
-            } else if (e.target.id === 'liStatistics') {
-                mainPage.innerHTML = '';
-                new Statistics().create();
-                document.getElementById('statistics').classList.add('show');
-            } else if (e.target.id !== 'liMain') {
-                document.getElementById('statistics').classList.remove('show');
-                mainPage.onclick = null;
-                playGm(e.target.id.replace('li', ''));
-            }
-            const list = document.getElementById('list');
-            Array.from(list.children).forEach((el) => el.classList.remove('decoration'));
-            e.target.classList.add('decoration');
-            document.getElementById('nav').classList.toggle('nav__show');
-        }
-    });
+    nav.addEventListener('click', eventNav);
 }
 
-document.getElementById('checkbox').addEventListener('change', () => {
+function eventFlipSwitcher() {
     const mainPage = document.getElementById('main');
     const check = document.getElementById('checkbox');
     if (mainPage.firstElementChild && mainPage.firstElementChild.id === 'category1') {
@@ -68,4 +70,6 @@ document.getElementById('checkbox').addEventListener('change', () => {
         }
         document.getElementById('containerStars').innerHTML = '';
     }
-});
+}
+
+document.getElementById('checkbox').addEventListener('change', eventFlipSwitcher);

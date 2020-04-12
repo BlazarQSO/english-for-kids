@@ -125,26 +125,31 @@ export default class Statistics {
 const statistics = new Statistics();
 statistics.parseStorage();
 
-document.getElementById('statistics').addEventListener('click', (e) => {
-    if (e.target.tagName === 'TH') {
-        const inverse = e.target.classList.contains('inverse-sort');
-        if (e.target.id.slice(0, 3) === 'num') {
-            document.getElementById(e.target.id).classList.toggle('inverse-sort');
-            statistics.sortNamber(+e.target.id.replace('num', ''), inverse);
-        } else {
-            document.getElementById(e.target.id).classList.toggle('inverse-sort');
-            statistics.sortAlphabet(+e.target.id.replace('alph', ''), inverse);
-        }
-        const headers = document.querySelectorAll('th');
-        Array.from(headers).forEach((item) => {
-            item.classList.remove('inverse-sort-click');
-            if (item.id !== e.target.id) {
-                item.classList.remove('inverse-sort');
+function eventStatistics(e) {
+    try {
+        if (e.target.tagName === 'TH') {
+            const inverse = e.target.classList.contains('inverse-sort');
+            if (e.target.id.slice(0, 3) === 'num') {
+                document.getElementById(e.target.id).classList.toggle('inverse-sort');
+                statistics.sortNamber(+e.target.id.replace('num', ''), inverse);
+            } else {
+                document.getElementById(e.target.id).classList.toggle('inverse-sort');
+                statistics.sortAlphabet(+e.target.id.replace('alph', ''), inverse);
             }
-        });
-        document.getElementById(e.target.id).classList.add('inverse-sort-click');
+            const headers = document.querySelectorAll('th');
+            Array.from(headers).forEach((item) => {
+                item.classList.remove('inverse-sort-click');
+                if (item.id !== e.target.id) {
+                    item.classList.remove('inverse-sort');
+                }
+            });
+            document.getElementById(e.target.id).classList.add('inverse-sort-click');
+        }
+    } catch (error) {
+        eventStatistics.errorMessage = error.message;
     }
-});
+}
 
+document.getElementById('statistics').addEventListener('click', eventStatistics);
 document.getElementById('reset').addEventListener('click', statistics.reset.bind(statistics));
 document.getElementById('repeat').addEventListener('click', statistics.repeat.bind(statistics));
